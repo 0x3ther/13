@@ -1,0 +1,26 @@
+{
+    "name": "@iioi/client",
+    "version": "1.0.25",
+    "description": "13 Game Client",
+    "private": true,
+    "type": "module",
+    "exports": {
+        "./*": {
+            "types": "./src/*",
+            "node": "./src/*"
+        },
+        "./*.js": {
+            "types": "./dist/*.d.ts",
+            "default": "./dist/*.js"
+        }
+    },
+    "scripts": {},
+    "author": "eliasku",
+    "license": "ISC",
+    "dependencies": {
+        "@firebase/analytics": "^0.10.0",
+        "@firebase/app": "^0.9.14",
+        "@iioi/shared": "1.0.17",
+        "firebase": "^10.1.0"
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "extends": "../../tsconfig.package.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "moduleResolution": "NodeNext"
+    },
+    "references": [
+        {
+            "path": "../client/tsconfig.json"
+        }
+    ],
+    "include": ["src/**/*.ts"],
+    "ts-node": {
+        "transpileOnly": true,
+        "esm": true,
+        "swc": true,
+        "compilerOptions": {
+            "moduleResolution": "NodeNext"
+        }
+    }
+}
