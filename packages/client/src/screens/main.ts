@@ -400,10 +400,6 @@ export const menuScreen = (roomsInfo: RoomsInfoResponse): MenuResult | undefined
 
         if (IsPokiBuild) {
             label("🏷 " + BuildClientVersion, 8, 2, H - 4, 0);
-        } else {
-            if (button("version_tag", " " + BuildClientVersion, 2, H - 16, {w: 48, h: 14, visible: true})) {
-                open("https://github.com/eliasku/13", "_blank");
-            }
         }
     }
     ui_finish();
