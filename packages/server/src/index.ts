@@ -28,6 +28,7 @@ const HDR_EVENT_STREAM: OutgoingHttpHeaders = {
     connection: "keep-alive",
     "content-type": "text/event-stream",
     "cache-control": "no-cache",
+    "X-Accel-Buffering": "no"
 };
 
 const HDR_JSON_NO_CACHE: OutgoingHttpHeaders = {
@@ -68,12 +69,15 @@ setInterval(() => {
 
 const constructMessage = (id: number, data: string) => `id:${id}\ndata:${data}\n\n`;
 
-const sendServerEvent = (instance: Instance, client: ClientState, event: ServerEventName, data: string) =>
-    client._eventStream.write(
-        constructMessage(client._nextEventId++, event + data),
+const sendServerEvent = (instance: Instance, client: ClientState, event: ServerEventName, data: string) =>{
+    const message = constructMessage(client._nextEventId++, event + data);
+
+    return     client._eventStream.write(
+message,
         // REMOVE CLIENT IN CASE OF ANY ERRORS!
         err => err && removeClient(instance, client),
     );
+}
 
 const broadcastServerEvent = (
     instance: Instance,
@@ -363,7 +367,7 @@ const HANDLERS: Record<string, Record<string, HandlerFunction>> = {
     },
 };
 
-const hostWhitelist = ["https://eliasku-games.web.app"];
+const hostWhitelist = ["https://eliasku-games.web.app", "https://game.ennea.dev"];
 if (PokiGameId) {
     hostWhitelist.push(`https://${PokiGameId}.poki-gdn.com`);
 }

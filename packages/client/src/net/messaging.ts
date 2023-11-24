@@ -228,8 +228,8 @@ const _post = (messages: Message[]): Promise<PostMessagesResponse> =>
         body: JSON.stringify([clientId, messages]),
     }).then(response => response.json() as Promise<PostMessagesResponse>);
 
-const onSSE: ((data: string) => void)[] = [
-    // CLOSE
+const onSSE: ((data: string) => void)[] = [    
+// CLOSE
     disconnect as (data: string) => void,
     // PING
     () => {
@@ -298,16 +298,18 @@ export const connect = (newGameParams?: NewGameParams, gameCode?: string) => {
             _mapSeed: newSeedFromTime(),
         };
     } else {
+console.log("connect");
         _sseState = 1;
         messageUploading = false;
         messagesToPost = [];
         callbacks = [];
         eventSource = new EventSource(getJoinUrl(gameCode, newGameParams));
+console.log(eventSource);
         eventSource.onerror = e => {
             console.warn("server-event error", e);
             disconnect();
         };
-        eventSource.onmessage = e => onSSE[e.data[0]]?.(e.data.substring(1));
+        eventSource.onmessage = e => {console.log(e); return onSSE[e.data[0]]?.(e.data.substring(1))};
     }
 };
 

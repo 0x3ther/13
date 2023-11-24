@@ -172,7 +172,6 @@ export const resetGame = () => {
     resetDebugStateCache();
     resetParticles();
     resetPlayerControls();
-
     game._clients.clear();
     game._localEvents.length = 0;
     game._receivedEvents.length = 0;
